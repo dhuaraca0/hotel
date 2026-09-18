@@ -88,24 +88,29 @@ const habitaciones = [
         id: 1,
 
         nombre:
-            "Suite con Jacuzzi",
+            "Habitación Individual",
 
         categoria:
-            "SUITE",
+            "INDIVIDUAL",
 
-        imagen:
-            "img/jacuzzi.jpg",
-
-        descripcion:
-            "Un espacio íntimo y cómodo para disfrutar momentos especiales.",
-
-        caracteristicas: [
-            "Jacuzzi",
-            "WiFi",
-            "TV"
+        imagenes: [
+            "img/individual-1.jpeg",
+            "img/individual-2.jpeg"
         ],
 
-        especial: true
+        descripcion:
+            "Pensada para quienes buscan máxima comodidad y confort con un estilo único.",
+
+        caracteristicas: [
+            "Cama de 2 plazas",
+            "TV Smart con Netflix",
+            "Baño privado",
+            "Closet",
+            "Room service",
+            "Internet WiFi"
+        ],
+
+        especial: false
     },
 
 
@@ -113,21 +118,26 @@ const habitaciones = [
         id: 2,
 
         nombre:
-            "Habitación Premium",
+            "Habitación Matrimonial",
 
         categoria:
-            "PREMIUM",
+            "MATRIMONIAL",
 
-        imagen:
-            "img/premium.jpg",
+        imagenes: [
+            "img/matrimonial-1.jpeg",
+            "img/matrimonial-2.jpeg"
+        ],
 
         descripcion:
-            "Comodidad y elegancia en un ambiente pensado para descansar.",
+            "Un espacio cómodo y acogedor diseñado para disfrutar de una estadía agradable en pareja.",
 
         caracteristicas: [
-            "TV",
-            "WiFi",
-            "Baño"
+            "Cama de 2 plazas",
+            "TV Smart con Netflix",
+            "Baño privado",
+            "Closet",
+            "Room service",
+            "Internet WiFi"
         ],
 
         especial: false
@@ -138,21 +148,27 @@ const habitaciones = [
         id: 3,
 
         nombre:
-            "Habitación Estándar",
+            "Habitación Matrimonial Premium",
 
         categoria:
-            "ESTÁNDAR",
+            "MATRIMONIAL",
 
-        imagen:
-            "img/estandar.jpg",
+        imagenes: [
+            "img/matrimonial-premium-1.jpeg",
+            "img/matrimonial-premium-2.jpeg"
+        ],
 
         descripcion:
-            "Una opción cómoda para descansar y disfrutar de Chaclacayo.",
+            "Una habitación confortable equipada con servicios adicionales para una estadía más placentera.",
 
         caracteristicas: [
-            "TV",
-            "WiFi",
-            "Baño"
+            "Cama Queen",
+            "Frigobar",
+            "TV Smart con Netflix",
+            "Baño privado",
+            "Closet",
+            "Room service",
+            "Internet WiFi"
         ],
 
         especial: false
@@ -168,23 +184,28 @@ const habitaciones = [
         categoria:
             "DOBLE",
 
-        imagen:
-            "img/doble.jpg",
+        imagenes: [
+            "img/doble-1.jpeg",
+            "img/doble-2.jpeg"
+        ],
 
         descripcion:
-            "Amplia y confortable para compartir una estadía agradable.",
+            "Amplia y cómoda habitación ideal para compartir, con dos camas y una agradable terraza.",
 
         caracteristicas: [
-            "2 personas",
-            "WiFi",
-            "TV"
+            "2 camas de 2 plazas",
+            "TV Smart con Netflix",
+            "Baño privado",
+            "Closet",
+            "Room service",
+            "Internet WiFi",
+            "Terraza"
         ],
 
         especial: false
     }
 
 ];
-
 
 
 /* =====================================================
@@ -626,10 +647,45 @@ function renderHabitaciones() {
                 <div class="room-image">
 
                     <img
-                        src="${habitacion.imagen}"
+                        id="room-image-${habitacion.id}"
+                        src="${habitacion.imagenes[0]}"
                         alt="${habitacion.nombre}"
                         loading="lazy"
                     >
+
+                    ${
+                        habitacion.imagenes.length > 1
+                        ?
+                        `
+                        <button
+                            class="image-prev"
+                            onclick="cambiarImagen(${habitacion.id}, -1)"
+                            aria-label="Imagen anterior">
+
+                            ‹
+
+                        </button>
+
+                        <button
+                            class="image-next"
+                            onclick="cambiarImagen(${habitacion.id}, 1)"
+                            aria-label="Imagen siguiente">
+
+                            ›
+
+                        </button>
+
+                        <div class="image-counter"
+                             id="image-counter-${habitacion.id}">
+
+                            1 / ${habitacion.imagenes.length}
+
+                        </div>
+                        `
+                        :
+                        ""
+                    }
+
 
                     ${
                         habitacion.especial
@@ -691,6 +747,72 @@ function renderHabitaciones() {
     );
 
 }
+
+function cambiarImagen(id, direccion) {
+
+    const habitacion =
+        habitaciones.find(
+            habitacion => habitacion.id === id
+        );
+
+
+    if (!habitacion || !habitacion.imagenes) {
+        return;
+    }
+
+
+    const imagen =
+        document.getElementById(
+            `room-image-${id}`
+        );
+
+
+    const contador =
+        document.getElementById(
+            `image-counter-${id}`
+        );
+
+
+    let indiceActual =
+        habitacion.imagenes.indexOf(
+            imagen.getAttribute("src")
+        );
+
+
+    indiceActual += direccion;
+
+
+    if (
+        indiceActual >=
+        habitacion.imagenes.length
+    ) {
+
+        indiceActual = 0;
+
+    }
+
+
+    if (indiceActual < 0) {
+
+        indiceActual =
+            habitacion.imagenes.length - 1;
+
+    }
+
+
+    imagen.src =
+        habitacion.imagenes[indiceActual];
+
+
+    if (contador) {
+
+        contador.textContent =
+            `${indiceActual + 1} / ${habitacion.imagenes.length}`;
+
+    }
+
+}
+
 
 
 

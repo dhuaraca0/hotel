@@ -331,16 +331,20 @@ button {
 
 .hero-overlay {
 
-    position: absolute;
-
+  position: absolute;
     inset: 0;
 
     background:
         linear-gradient(
             90deg,
-            rgba(0,0,0,.72),
-            rgba(0,0,0,.25)
-        );
+            rgba(0, 0, 0, .72),
+            rgba(0, 0, 0, .25)
+        ),
+        url("../img_static/principal.jpeg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 
@@ -617,15 +621,7 @@ button {
 }
 
 
-.room-image {
 
-    height: 330px;
-
-    position: relative;
-
-    overflow: hidden;
-
-}
 
 
 .room-image img {
@@ -753,6 +749,63 @@ button {
 }
 
 
+.room-image {
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+.image-prev,
+.image-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(0, 0, 0, 0.55);
+    color: white;
+
+    font-size: 28px;
+    line-height: 40px;
+
+    cursor: pointer;
+
+    z-index: 2;
+}
+
+.image-prev {
+    left: 12px;
+}
+
+.image-next {
+    right: 12px;
+}
+
+.image-prev:hover,
+.image-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.image-counter {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+
+    padding: 5px 10px;
+
+    border-radius: 15px;
+
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+
+    font-size: 12px;
+}
 
 /* =====================================================
    BANNER
@@ -1366,36 +1419,23 @@ button {
 
 .whatsapp-float {
 
-    position: fixed;
-
+ position: fixed;
     right: 25px;
-
     bottom: 25px;
-
-    width: 60px;
-
-    height: 60px;
-
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
 
-    background: #25d366;
-
-    color: white;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     display: flex;
-
     justify-content: center;
-
     align-items: center;
 
-    font-size: 28px;
-
     z-index: 1500;
-
-    box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.25);
-
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
     transition: 0.3s;
 
 }
